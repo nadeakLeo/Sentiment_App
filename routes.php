@@ -10,16 +10,16 @@
 		$controller->{ $action }();
 	}
 
-	$controllers = array('pages' => ['home', 'error', 'show']);
+	$controllers = array('pages' => ['home', 'page_notfound', 'show']);
 	//Check controller that called exist
 	if (array_key_exists($controller, $controllers)) {
 		if (in_array($action, $controllers[$controller])) {
 			call($controller, $action);
 		} else {
-			call('pages', 'error');
+			call('pages', 'page_notfound');
 		}
 	} else {
-		call('pages', 'error');
+		call('pages', 'page_notfound');
 	}
 	
 ?>

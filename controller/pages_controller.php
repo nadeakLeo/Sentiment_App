@@ -6,7 +6,8 @@
 			require_once('view/pages/home.php');
 		}
 
-		public function error() {
+		public function page_notfound() {
+			$error = "The Page You Access Can Not Be Found";
 			require_once('view/pages/error.php');
 		}
 
@@ -14,9 +15,14 @@
 			//showing Sentiment Analytics Result
 			$input = $_POST['comment'];
 			$analyzer = new Analyzer($input);
-			$result = new JSONParser($analyzer->getResponse());
+			if ($analyzer->getError() !== null) {
+				$error = $analyzer->getError();
+				require_once('view/pages/error.php');
+			} else {
+				$result = new JSONParser($analyzer->getResponse());
 
-			require_once('view/pages/analytics_result.php');
+				require_once('view/pages/analytics_result.php');
+			}
 		}
 	}
 ?>
